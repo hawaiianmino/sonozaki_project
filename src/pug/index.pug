@@ -1,0 +1,18 @@
+extend layouts/_default
+append value
+  - const title = "トップページのタイトル | Site Name";
+  - const description = "トップページのディスクリプション";
+  - const keywords = "キーワード,キーワード2,キーワード3";
+  - const path = ".";
+  - const location = "top";
+
+block header
+  include components/layout/_header
+
+block main
+  include components/project/_swiper
+  //- include components/component/_accordion
+  //- include components/component/_scroll-top
+
+block footer
+  include components/layout/_footer

@@ -1,0 +1,9 @@
+@use '../base/function';
+@use '../base/mixin';
+
+body {
+  font-size: function.fz(18);
+  @include mixin.mq(md,max) {
+    font-size: function.fz(16);
+  }
+}
