@@ -1,2 +1,7 @@
+@forward 'base/function';
+@forward 'base/mixin';
+@forward 'base/base';
+
 @use 'base/reset';
 @use 'parts/header';
+@use 'parts/fv';

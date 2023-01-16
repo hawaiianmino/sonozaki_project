@@ -1,9 +1,857 @@
 @use '../base/function';
 @use '../base/mixin';
+@use '../base/base';
 
-body {
-  font-size: function.fz(18);
+
+
+/* ====================
+ * header
+ * ===================*/
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 26px 39px;
+  background: linear-gradient(to right, rgba(75,108,183,1) 0%, rgba(24,40,72,1) 100%);
+  width: 100%;
+  position: relative;
+  @include mixin.mq(lg,max) {
+    padding: 20px function.vw(1360,10);
+  }
   @include mixin.mq(md,max) {
+    padding: 15px 20px;
+  }
+  &.downmove {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    animation-name: downMenu;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+    background: #fff;
+    .nav-menu__item {
+      &.current a{
+        color: base.$accent-color;
+        @include mixin.mq(md,max) {
+          color: #000;
+        }
+      }
+      a {
+        color: #000;
+        @include mixin.mq(md,max) {
+          color: #fff;
+        }
+      }
+      &::before {
+        background-color: #000;
+      }
+    }
+    .hamburger span {
+      background: #000;
+    }
+  }
+}
+// アニメーション
+@keyframes downMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-55px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.header-logo {
+  margin-right: function.vw(1360,24);
+  z-index: 20;
+  img {
+    max-width: 136px;
+    @include mixin.mq(md,max) {
+      max-width: 120px;
+    }
+  }
+}
+.header-menu {
+  @include mixin.mq(md,max) {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: -120%;
+    background-color: base.$accent-color;
+    z-index: 10;
+    padding-top: 20%;
+    transition: all .3s ease-in-out;
+    &.active {
+      right: 0;
+    }
+  }
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  &__item {
+    text-align: center;
     font-size: function.fz(16);
+    position: relative;
+    @include mixin.mq(ipad,max) {
+      font-size: function.fz(14);
+    }
+    @include mixin.mq(md,max) {
+      width: 100%;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+    + .nav-menu__item {
+      margin-left: function.vw(1360,37);
+      @include mixin.mq(md,max) {
+        margin-left: initial;
+      }
+    }
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 32px;
+      background-color: #fff;
+      position: absolute;
+      top: 36%;
+      left: function.vw(1360,-17);
+      transform: translateY(-50%) rotate(40deg);
+      @include mixin.mq(ipad,max) {
+        height: 20px;
+        left: -12px;
+      }
+      @include mixin.mq(md,max) {
+        content: none;
+      }
+    }
+    &:first-of-type {
+      &::before {
+        content: none;
+      }
+    }
+  }
+  &__link {
+    color: #fff;
+  }
+  span {
+    display: block;
+    font-size: function.fz(10);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  @include mixin.mq(md,max) {
+    flex-direction: column;
+  }
+}
+// ハンバーガーメニュー
+.hamburger{
+  position: absolute;/*ボタン内側の基点となるためrelativeを指定*/
+  background:transparent;
+  cursor: pointer;
+  width: 50px;
+  height:50px;
+  border-radius: 5px;
+  right: 0;
+  z-index: 20;
+}
+
+/*ボタン内側*/
+.hamburger span{
+  display: inline-block;
+  transition: all .4s;/*アニメーションの設定*/
+  position: absolute;
+  left: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background: #fff;
+  width: 45%;
+  }
+
+.hamburger span:nth-of-type(1) {
+  top:15px; 
+}
+
+.hamburger span:nth-of-type(2) {
+  top:23px;
+}
+
+.hamburger span:nth-of-type(3) {
+  top:31px;
+}
+
+/*activeクラスが付与されると線が回転して×に*/
+.hamburger.active span:nth-of-type(1) {
+  top: 18px;
+  left: 18px;
+  transform: translateY(6px) rotate(-45deg);
+  width: 30%;
+}
+
+.hamburger.active span:nth-of-type(2) {
+  opacity: 0;/*真ん中の線は透過*/
+}
+
+.hamburger.active span:nth-of-type(3){
+    top: 30px;
+    left: 18px;
+    transform: translateY(-6px) rotate(45deg);
+    width: 30%;
+}
+/* ====================
+ * service
+ * ===================*/
+ .service {
+  margin-top: function.vw(1360,160);
+  margin-bottom: function.vw(1360,128);
+  @include mixin.mq(md,max) {
+    margin-top: 118px;
+  }
+   .section-inner {
+    position: relative;
+    margin: 0 auto 0 0;
+    overflow: hidden;
+    &.service__inner {
+      max-width: 100%;
+      display: flex;
+      flex-direction: row-reverse;
+      padding: function.vw(1360,36) 0;
+      background-color: #f0f0f0;
+      padding-right: calc(100vw - 1191px);
+      @include mixin.mq(xxl,min) {
+        padding-right: calc((100vw - 1191px) / 2);
+        padding-left: calc((100vw - 1191px) / 2);
+      }
+      @include mixin.mq(md,max) {
+        flex-direction: column-reverse;
+        padding-top: 0;
+        padding-bottom: 48px;
+      }
+    }
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 280px;
+      height: 180%;
+      background-color: #fff;
+      position: absolute;
+      top: 50%;
+      right: 10.2%;
+      transform: translateY(-40%) rotate(40deg);
+      z-index: 1;
+    }
+   }
+   .section-sub-title {
+    margin-top: function.vw(1360,26);
+    @include mixin.mq(md,max) {
+      margin-top: 22px;
+      line-height: 1.5;
+    }
+   }
+   .section-text {
+    margin-top: function.vw(1360,16);
+    @include mixin.mq(md,max) {
+      margin-top: 18px;
+    }
+   }
+   .service__img {
+    position: relative;
+    z-index: 2;
+    img {
+      width: function.vw(1360,620);
+      max-width: 620px;
+      @include mixin.mq(md,max) {
+        width: 100%;
+        height: 248px;
+        object-fit: cover;
+      }
+    }
+   }
+   .service__text {
+    margin-left: function.vw(1360,47);
+    z-index: 2;
+    @include mixin.mq(md,max) {
+      margin-left: 0;
+      padding: 33px 20px 30px 20px;
+    }
+   }
+   .btn-wrap {
+    margin-top: function.vw(1360,43);
+    @include mixin.mq(md,max) {
+      margin-top: 30px;
+    }
+    .btn {
+      @include mixin.mq(md,max) {
+        margin: 0 auto;
+        padding-left: 49px;
+      }
+    }
+   }
+ }
+
+/* ====================
+ * about
+ * ===================*/
+ .about {
+  background: url('../img/background-image-about.jpg') no-repeat center / cover;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  @include mixin.mq(md,max) {
+    background: none;
+    padding-top: 17px;
+    padding-bottom: 43px;
+  }
+  &__text {
+    padding: 40px 46px 46px 49px;
+    width: calc((504 / 1016)* 100%);
+    background-color: #fff;
+    @include mixin.mq(xxl) {
+      padding: 48px;
+    }
+    @include mixin.mq(lg,max) {
+      width: calc((600 / 1016)* 100%);
+    }
+    @include mixin.mq(md,max) {
+      width: 100%;
+      padding: 20px 20px 46px 20px;
+      margin-top: 19px;
+    }
+  }
+  .section-inner {
+    @include mixin.mq(md,max) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .section-title {
+    @include mixin.mq(md,max) {
+      margin-top: 35px;
+    }
+  }
+  .section-title-sub {
+    @include mixin.mq(md,max) {
+      margin-left: 31px;
+    }
+  }
+  .section-text {
+    margin-top: 27px;
+    @include mixin.mq(md,max) {
+      margin-top: 20px;
+    }
+  }
+  .btn-wrap {
+    margin-top: 38px;
+    @include mixin.mq(md,max) {
+      margin-top: 28px;
+    }
+    .btn {
+      justify-content: center;
+      @include mixin.mq(md,max) {
+        margin: 0 auto;
+      }
+    }
+    span {
+      display: inline-block;
+      margin-left: -17px;
+    }
+  }
+  &__img {
+    margin-top: 32px;
+  }
+ }
+
+ /* ====================
+ * works
+ * ===================*/
+ .works {
+  margin-top: function.vw(1360,154);
+  margin-bottom: function.vw(1360,160);
+  background-color: #f0f0f0;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  @include mixin.mq(xxl) {
+    margin-top: 154px;
+    margin-bottom: 160px;
+  }
+  @include mixin.mq(md,max) {
+    padding-top: 27px;
+    padding-bottom: 42px;
+    margin-top: 35px;
+  }
+  &::after {
+    content: '';
+    display: inline-block;
+    background-color: #fff;
+    height: 200%;
+    width: 1000px;
+    position: absolute;
+    top: 50%;
+    left: 13%;
+    transform: translateY(-50%) rotate(-41deg);
+    z-index: 1;
+    @include mixin.mq(xxl) {
+      height: 300%;
+    }
+    @include mixin.mq(md,max) {
+      // 一時的に削除
+      content: none;
+    }
+  }
+  .section-inner {
+    position: relative;
+    z-index: 2;
+    @include mixin.mq(md,max) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .section-title {
+    text-align: center;
+    @include mixin.mq(md,max) {
+      text-align: left;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  .section-sub-title {
+    text-align: center;
+    margin-top: 26px;
+    @include mixin.mq(md,max) {
+      text-align: left;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-top: 22px;
+    }
+  }
+  .section-text {
+    text-align: center;
+    margin-top: 25px;
+    @include mixin.mq(md,max) {
+      padding-left: 20px;
+      padding-right: 20px;
+      text-align: left;
+      margin-top: 19px;
+    }
+  }
+  .btn-wrap {
+    margin-top: 40px;
+    @include mixin.mq(md,max) {
+      margin-top: 1px;
+    }
+    .btn {
+      margin: 0 auto;
+      @include mixin.mq(md,max) {
+        padding: 14px 10px 14px 67px;
+      }
+    }
+  }
+ }
+ .grid-col2 {
+  display: flex;
+  &.mt47 {
+    margin-top: 47px;
+    @include mixin.mq(md,max) {
+      margin-top: 36px;
+    }
+  }
+  @include mixin.mq(md,max) {
+    flex-direction: column;
+  }
+ }
+ .card {
+    width: 472px;
+    box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.3);
+    @include mixin.mq(md,max) {
+      box-shadow: initial;
+      width: initial;
+    }
+    &__img {
+      position: relative;
+      img {
+        height: 160px;
+        object-fit: cover;
+      }
+    }
+    &__tag {
+      font-size: function.fz(24);
+      padding: 18px 14px;
+      color: #fff;
+      line-height: 1;
+      display: inline-block;
+      background-color: base.$base-color;
+      position: absolute;
+      left: -15px;
+      top: -17px;
+      @include mixin.mq(md,max) {
+        top: initial;
+        left: 0;
+        bottom: 0;
+        font-size: function.fz(20);
+        padding: 12px 20px;
+      }
+    }
+    &__wrap {
+      padding: 30px 24px 30px 24px;
+      background-color: #fff;
+      @include mixin.mq(md,max) {
+        padding: 20px 24px 33px 21px;
+        background-color: transparent;
+      }
+    }
+    &__title {
+      font-size: function.fz(24);
+      line-height: 1;
+      color: #b8614b;
+      @include mixin.mq(md,max) {
+        font-size: function.fz(20);
+      }
+    }
+    &__text {
+      font-size: function.fz(16);
+      letter-spacing: .02em;
+      line-height: 2;
+      margin-top: 21px;
+      @include mixin.mq(md,max) {
+        font-size: function.fz(14);
+        margin-top: 16px;
+      }
+    }
+    + .card {
+      margin-left: function.vw(1360,40);
+      @include mixin.mq(md,max) {
+        margin-left: initial;
+      }
+    }
+ }
+/* ====================
+ * recruit
+ * ===================*/
+ .grid-col3 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: function.vw(1360,50);
+  @include mixin.mq(xxl) {
+    margin-top: 50px;
+  }
+  @include mixin.mq(md,max) {
+    flex-direction: column;
+  }
+ }
+.box {
+  @include mixin.mq(md,max) {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+  &__img {
+    position: relative;
+    img {
+      @include mixin.mq(md,max) {
+        height: 200px;
+        object-fit: cover;
+      }
+    }
+  }
+  &__title {
+    font-size: function.fz(16);
+    line-height: 1;
+    letter-spacing: 0;
+    color: #fff;
+    padding: 20px 16px;
+    background-color: rgba($color: #182848, $alpha: 0.5);
+    position: absolute;
+    bottom: -10%;
+    left: 18%;
+    width: 84%;
+    @include mixin.mq(md,max) {
+      left: 0;
+      bottom: 0;
+      width: 42%;
+      background-color: transparent;
+      padding: 16px 20px;
+    }
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 15px;
+      height: 4px;
+      transform: skew(45deg);
+      border-bottom: 1px solid #fff;
+      border-right: 1px solid #fff;
+      position: absolute;
+      top: 47%;
+      right: 18px;
+    }
+  }
+  &:first-of-type {
+    margin-top: 80px;
+    @include mixin.mq(md,max) {
+      margin-top: 16px;
+    }
+  }
+  &:nth-of-type(2) {
+    margin-top: 40px;
+    @include mixin.mq(md,max) {
+      margin-top: initial;
+    }
+  }
+  + .box {
+    margin-left: function.vw(1360,36);
+    @include mixin.mq(md,max) {
+      margin-left: calc(50% - 50vw);
+    }
+  }
+}
+ .recruit {
+  background-color: #f0f0f0;
+  padding-top: 73px;
+  padding-bottom: 80px;
+  @include mixin.mq(md,max) {
+    padding-bottom: 121px;
+    background-color:initial;
+  }
+  .section-title {
+    text-align: center;
+    @include mixin.mq(md,max) {
+      text-align: left;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .section-title-sub {
+    @include mixin.mq(md,max) {
+      margin-left: 35px;
+    }
+  }
+  .btn-wrap {
+    margin-top: 66px;
+    @include mixin.mq(md,max) {
+      margin-top: 40px;
+    }
+    .btn {
+      margin: 0 auto;
+      @include mixin.mq(md,max) {
+        padding-left: 53px;
+        &::after {
+          margin-left: 6px;
+        }
+      }
+    }
+  }
+ }
+
+ /* ====================
+ * contact
+ * ===================*/
+  .contact {
+    padding-top: 73px;
+    padding-bottom: 80px;
+    background: url(../img/bckground-image-contact.jpg) no-repeat center / cover;
+    @include mixin.mq(md,max) {
+      padding-top: 92px;
+      padding-bottom: 94px;
+    }
+    .section-title {
+      text-align: center;
+      color: #fff;
+      @include mixin.mq(md,max) {
+        text-align: left;
+      }
+    }
+    .section-title-sub {
+      margin-left: 4.5%;
+      color: #fff;
+      @include mixin.mq(md,max) {
+        margin-left: 10.5%;
+      }
+      &::before {
+        background-color: #fff;
+      }
+    }
+    .section-text {
+      text-align: center;
+      margin-top: function.vw(1360,26);
+      color: #fff;
+      @include mixin.mq(md,max) {
+        text-align: left;
+        margin-top: 18px;
+        font-size: function.fz(16);
+        letter-spacing: 0;
+      }
+    }
+    .btn-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: function.vw(1360,48);
+      @include mixin.mq(md,max) {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 25px;
+      }
+      .btn:first-of-type::before, 
+      .btn:nth-of-type(2)::before {
+        content: '';
+        display: inline-block;
+      }
+      .btn:first-of-type::before {
+        background: url(../img/Backhoe.svg) no-repeat center / contain;
+        margin-right: 16px;
+        width: 24px;
+        height: 24px;
+        @include mixin.mq(md,max) {
+          width: 16px;
+        }
+      }
+      .btn:nth-of-type(2)::before {
+        background: url(../img/Factory.svg) no-repeat center / contain;
+        margin-right: 16px;
+        width: 20px;
+        height: 20px;
+        @include mixin.mq(md,max) {
+          width: 15px;
+        }
+      }
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5em 1.7875em 1.5em 1.1625em;
+        width: 320px;
+        @include mixin.mq(md,max) {
+          padding: 12px 26px 12px 24px;
+          width: 100%;
+          max-width: 350px;
+          justify-content: space-between;
+          height: 49px;
+
+        }
+        + .btn {
+          margin-left: function.vw(1360,80);
+          @include mixin.mq(md,max) {
+            margin-left: initial;
+            margin-top: 24px;
+          }
+        }
+        &:first-of-type {
+          background-color: #b8614b;
+        }
+        &:nth-of-type(2) {
+          background-color: #000;
+          padding: 1.5em 1.7875em 1.5em 1.3625em;
+          @include mixin.mq(md,max) {
+            padding: 12px 26px 12px 24px;
+          }
+        }
+      }
+    }
+  }
+
+   /* ====================
+ * footer
+ * ===================*/
+.footer {
+  padding-top: 82px;
+  padding-bottom: 110px;
+  background-color: base.$base-color;
+  color: #fff;
+  @include mixin.mq(md,max) {
+    padding-top: 38px;
+    padding-bottom: 31px;
+  }
+  &__right,&__left {
+    @include mixin.mq(md,max) {
+      width: 100%;
+    }
+  }
+  &__right {
+    margin-top: 60px;
+    @include mixin.mq(md,max) {
+      margin-top: initial;
+    }
+  }
+  &__left {
+    @include mixin.mq(md,max) {
+      margin-top: 81px;
+    }
+  }
+  &__logo {
+    width: 272px;
+    @include mixin.mq(md,max) {
+      width: 160px;
+    }
+  }
+  &__address {
+    margin-top: 30px;
+    @include mixin.mq(md,max) {
+      margin-top: 14px;
+    }
+  }
+  .section-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include mixin.mq(md,max) {
+      flex-direction: column-reverse;
+    }
+  }
+  &__address-cont {
+    font-size: function.fz(16);
+    line-height: 2.3;
+    letter-spacing: .02em;
+    @include mixin.mq(md,max) {
+      font-size: function.fz(14);
+      line-height: 2.2;
+    } 
+  }
+  &__nav {
+    display: flex;
+    @include mixin.mq(md,max) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  &__nav-item {
+    writing-mode: vertical-rl;
+    @include mixin.mq(md,max) {
+      writing-mode: initial;
+    }
+    + .footer__nav-item {
+      margin-left: 20px;
+      @include mixin.mq(md,max) {
+        margin-left: initial;
+        margin-top: 22px;
+      }
+    }
+    &.margin-edit {
+      margin-left: 78px;
+      @include mixin.mq(md,max) {
+        margin-left: initial;
+        margin-top: 60px;
+      }
+    }
+  }
+  &__nav-link {
+    font-size: function.fz(16);
+    color: #fff;
+    letter-spacing: .2em;
+    line-height: 1;
+    // writing-mode: vertical-rl;
+    @include mixin.mq(md,max) {
+      writing-mode: initial;
+      font-size: function.fz(14);
+      letter-spacing: 0;
+    }
+  }
+}
+.copy {
+  font-size: function.fz(12);
+  color: #fff;
+  background-color: #000;
+  padding: 24px 20px;
+  @include mixin.mq(md,max) {
+    font-size: function.fz(10);
   }
 }

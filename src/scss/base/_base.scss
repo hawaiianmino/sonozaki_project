@@ -1,0 +1,158 @@
+@use '../base/function';
+@use '../base/mixin';
+
+// カラー設定
+$base-color: #182848;
+$accent-color: #4b6cb7;
+
+
+// basic設定
+body {
+  font-size: function.fz(16);
+  font-family: 'Noto Sans JP', sans-serif;
+  &.fixed {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+  }
+  .ffE {
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+  }
+  .ffJ {
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+}
+main.adjust-margin {
+  margin-top: 82px;
+  @include mixin.mq(ipad,max) {
+    margin-top: 69px;
+  }
+  @include mixin.mq(md,max) {
+    margin-top: 55px;
+  }
+}
+img {
+  width: 100%;
+  vertical-align: bottom!important;
+}
+a {
+  text-decoration: none;
+}
+.pc{
+  display: none;
+  @include mixin.mq(md,min) {
+    display: block;
+  }
+}
+.sp {
+  display: block;
+  @include mixin.mq(md,min) {
+    display: none;
+  }
+}
+.js_fadein {
+  transform: translateY(-100px);
+  opacity: 0;
+  &.is-fadein {
+    transform: translateY(0);
+    opacity: 1;
+    transition: all .5s ease-in-out;
+  }
+}
+.section-title {
+  font-size: function.vw(1360,48);
+  font-weight: 600;
+  letter-spacing: 0;
+  @include mixin.mq(xxl,min) {
+    font-size: function.fz(48);
+  }
+  @include mixin.mq(lg,max) {
+    font-size: function.fz(35);
+  }
+  @include mixin.mq(md,max) {
+    font-size: function.fz(32);
+  }
+}
+.section-title-sub {
+  font-size: function.em(24,48);
+  color: $accent-color;
+  margin-left: 26px;
+  font-weight: 400;
+  position: relative;
+  @include mixin.mq(md,max) {
+    font-size: function.fz(20);
+  }
+  &::before {
+    content: '';
+    background-color: $accent-color;
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    transform: rotate(-49deg);
+    position: absolute;
+    top: 50%;
+    left: -35px;
+    @include mixin.mq(md,max) {
+      left: -29px;
+      width: 26px;
+    }
+  }
+}
+.section-sub-title {
+  font-size: function.vw(1360,32);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+  @include mixin.mq(xxl,min) {
+    font-size: function.fz(32);
+  }
+  @include mixin.mq(lg,max) {
+    font-size: function.fz(24);
+  }
+}
+.section-inner {
+  width: 100%;
+  max-width: 1056px;
+  margin: 0 auto;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.section-text {
+  font-size: function.fz(16);
+  letter-spacing: .02em;
+  line-height: 2;
+  @include mixin.mq(md,max) {
+    font-size: function.fz(14);
+  }
+}
+
+.btn {
+  padding: function.em(24) function.em(27) function.em(24) function.em(41);
+  width: 256px;
+  background-color: $accent-color;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  @include mixin.mq(md,max) {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-size: function.fz(14);
+  }
+  &::after {
+    content: '';
+    display: inline-block;
+    height: 4px;
+    width: 15px;
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff;
+    transform: skew(45deg);
+    margin-left: 12px;
+  }
+  &:hover {
+    opacity: .7;
+    cursor: pointer;
+    transition: all .3s ease;
+  }
+}
