@@ -72,7 +72,7 @@ $(function() {
     const $main = $('main');
     let scroll = $(window).scrollTop();
     let downMove = 'downmove';
-    let blackLogo = '../img/logo-b.png';
+    let blackLogo = '../img/logo-b.svg';
     let whiteLogo = '../img/logo-w-2.png';
     let $headerImage = $('.header-logo__img img');
 
