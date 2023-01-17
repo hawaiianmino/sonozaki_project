@@ -136,6 +136,12 @@ $(function() {
     });
   }
 
+  //loading画面処理
+  const loadAnimation = () => {
+    $('.loading').delay(1500).fadeOut('slow');
+    $('.loading__img').delay(1000).fadeOut('slow');
+  }
+
   hamburgerOpen();
   somoothScroll();
 
@@ -147,6 +153,7 @@ $(function() {
   });
 
   $(window).on('load', function() {
+    loadAnimation();
     naviFixed();
     PositionCheck();
     ScrollAnime();
